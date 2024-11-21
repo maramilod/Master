@@ -63,6 +63,9 @@ public class Player extends Entity {
     private int powerAttackTick;
     private int powerGrowSpeed = 15;
     private int powerGrowTick;
+    
+    // add
+    private static float speed = 0f;
 
     private final PlayerCharacter playerCharacter;
 
@@ -78,6 +81,10 @@ public class Player extends Entity {
         statusBarImg = LoadSave.GetSpriteAtlas(LoadSave.STATUS_BAR);
         initHitbox(playerCharacter.hitboxW, playerCharacter.hitboxH);
         initAttackBox();
+    }
+     
+    public static void speedUp(float v) {
+    	speed = v;
     }
 
     public void setSpawn(Point spawn) {
@@ -317,12 +324,18 @@ public class Player extends Entity {
         float xSpeed = 0;
 
         if (left && !right) {
-            xSpeed -= walkSpeed;
+        	if (speed != 0)
+        		xSpeed -= speed;
+        	else
+        		xSpeed -= walkSpeed;
             flipX = width;
             flipW = -1;
         }
         if (right && !left) {
-            xSpeed += walkSpeed;
+        	if (speed != 0)
+        		xSpeed += speed;
+        	else
+        		xSpeed += walkSpeed;
             flipX = 0;
             flipW = 1;
         }

@@ -13,6 +13,8 @@ import javax.imageio.ImageIO;
 
 public class LoadSave {
 
+	// ADD NEW OBJECT
+    public static final String Boots = "bootss.png";
     public static final String PLAYER_PIRATE = "player_sprites.png";
     public static final String PLAYER_ORC = "player_orc.png";
     public static final String PLAYER_SOLDIER = "player_soldier.png";
@@ -59,7 +61,7 @@ public class LoadSave {
         BufferedImage[][] animations = new BufferedImage[pc.rowA][pc.colA];
         for (int j = 0; j < animations.length; j++)
             for (int i = 0; i < animations[j].length; i++)
-                animations[j][i] = img.getSubimage(i * 100, j * 100, 100,100);
+                animations[j][i] = img.getSubimage(i * 100, j * 100, 100, 100);
 
         return animations;
     }

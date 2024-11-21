@@ -119,6 +119,8 @@ public class ObjectManager {
 		grassImgs = new BufferedImage[2];
 		for (int i = 0; i < grassImgs.length; i++)
 			grassImgs[i] = grassTemp.getSubimage(32 * i, 0, 32, 32);
+		
+
 	}
 
 	public void update(int[][] lvlData, Player player) {
@@ -249,10 +251,13 @@ public class ObjectManager {
 					type = 1;
 				g.drawImage(containerImgs[type][gc.getAniIndex()], (int) (gc.getHitbox().x - gc.getxDrawOffset() - xLvlOffset), (int) (gc.getHitbox().y - gc.getyDrawOffset()), CONTAINER_WIDTH,
 						CONTAINER_HEIGHT, null);
+				
 			}
 	}
 
 	private void drawPotions(Graphics g, int xLvlOffset) {
+		BufferedImage boots = LoadSave.GetSpriteAtlas(LoadSave.Boots);
+
 		for (Potion p : potions)
 			if (p.isActive()) {
 				int type = 0;
@@ -260,16 +265,20 @@ public class ObjectManager {
 					type = 1;
 				g.drawImage(potionImgs[type][p.getAniIndex()], (int) (p.getHitbox().x - p.getxDrawOffset() - xLvlOffset), (int) (p.getHitbox().y - p.getyDrawOffset()), POTION_WIDTH, POTION_HEIGHT,
 						null);
-			}
+				g.drawImage(boots, (int) (p.getHitbox().x - p.getxDrawOffset() - xLvlOffset), (int) (p.getHitbox().y - p.getyDrawOffset()) + 10, CONTAINER_WIDTH - 50,
+						CONTAINER_HEIGHT - 10 , null);
+				Player.speedUp(4.0f); 
+			} 
 	}
 
-	public void resetAllObjects() {
+	public void resetAllObjects() {   
 		loadObjects(playing.getLevelManager().getCurrentLevel());
 		for (Potion p : potions)
 			p.reset();
-		for (GameContainer gc : containers)
-			gc.reset();
+		for (GameContainer gc : containers) 
+			gc.reset();  
 		for (Cannon c : currentLevel.getCannons())
 			c.reset();
+		Player.speedUp(0);
 	}
 }
